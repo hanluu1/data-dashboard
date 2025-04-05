@@ -7,6 +7,8 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
   const [list, setList] = useState([]);
+  const[isNavOpen, setIsNavOpen] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -22,10 +24,11 @@ function App() {
 
   return (
     <div>
-      <Header />
-      <NavBar />
-      <JobList jobs={list} />
-     
+      <Header toggleNav={() => setIsNavOpen(!isNavOpen)}/>
+      <div className='main'>
+        {isNavOpen && <NavBar />}
+        <JobList jobs={list} />
+      </div>
     </div>
   )
 }

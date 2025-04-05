@@ -1,9 +1,16 @@
-const Header = () => {
+
+const Header = ({toggleNav}) => {
+  
     return (
-        <header className="bg-gray-800 text-white p-4">
-        <h1 className="text-2xl font-bold">Job Listings</h1>
         
-        </header>
+        <div className="header">
+            <img src="public/MenuIcons.svg" alt="Logo"
+            onClick={toggleNav}
+            style={{cursor:'pointer'}} />
+            <h1>Get Your Dream</h1>
+           
+        </div> 
+    
     )
     };
 export default Header;
