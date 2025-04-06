@@ -3,6 +3,7 @@ import Header from './components/Header'
 import NavBar from './components/Navbar';
 import './App.css'
 import JobList from './components/JobList';
+import SummaryStats from './components/SummaryStats';
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
@@ -25,10 +26,15 @@ function App() {
   return (
     <div>
       <Header toggleNav={() => setIsNavOpen(!isNavOpen)}/>
+      
       <div className='main'>
         {isNavOpen && <NavBar />}
-        <JobList jobs={list} />
+        <div className='main-content'>        
+          <SummaryStats jobs={list}/>
+          <JobList jobs={list} />
+        </div>
       </div>
+      
     </div>
   )
 }
