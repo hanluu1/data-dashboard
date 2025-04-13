@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SearchFilter from './SearchFilter';
+import { Link } from 'react-router-dom';
 
 const JobList = ({ jobs = [] }) => {
     const [searchJob, setSearchJob] = useState('');
@@ -33,17 +34,23 @@ const JobList = ({ jobs = [] }) => {
                 <p>Location</p>
                 <p>Company</p>
                 <p>Publication Date</p>
+                <p>More Info</p>
                 <p>Apply</p>
             </div>
 
             {/* Filtered Job List */}
             {filteredJobs.map((job) => (
                 <div key={job.id} className="job-item">
+                    
                     <h2>{job.name}</h2>
                     <p>{job.locations.map((loc) => loc.name).join(', ')}</p>
                     <p>{job.company.name}</p>
                     <p>{new Date(job.publication_date).toLocaleDateString()}</p>
+                    <Link to={`/job/${job.id}`} className="more-info-link">
+                        More Info
+                    </Link>
                     <a
+                        className="apply-link"
                         href={job.refs.landing_page}
                         target="_blank"
                         rel="noopener noreferrer"

@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react'
-import Header from './components/Header'
-import NavBar from './components/Navbar';
-import './App.css'
-import JobList from './components/JobList';
-import SummaryStats from './components/SummaryStats';
+import { useEffect, useState } from 'react';
+import { Routes, Route } from 'react-router-dom'; 
+import './App.css';
+import Header from './components/header/Header';
+import NavBar from './components/header/Navbar';
+import JobList from './components/manage-job/JobList';
+import JobDetail from './components/manage-job/JobDetails';
+import SummaryStats from './components/manage-job/SummaryStats';
+
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function App() {
   const [list, setList] = useState([]);
-  const[isNavOpen, setIsNavOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,22 +24,28 @@ function App() {
       }
     };
     fetchData();
-  },[]);
+  }, []);
 
   return (
     <div>
-      <Header toggleNav={() => setIsNavOpen(!isNavOpen)}/>
-      
-      <div className='main'>
+      <Header toggleNav={() => setIsNavOpen(!isNavOpen)} />
+      <div className="main">
         {isNavOpen && <NavBar />}
-        <div className='main-content'>        
-          <SummaryStats jobs={list}/>
-          <JobList jobs={list} />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={
+              <>
+                <SummaryStats jobs={list} />
+                <JobList jobs={list} />
+              </>
+            } />
+            
+            <Route path="/job/:jobId" element={<JobDetail jobs={list} />} />
+          </Routes>
         </div>
       </div>
-      
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
